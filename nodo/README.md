@@ -1,3 +1,4 @@
+```
 docker run \
      -v ${PWD}:/data ethereum/client-go account 
      new --password /data/password.txt --datadir /data/data
@@ -31,3 +32,5 @@ docker run  -p 8545:8545 \
     --password /password.txt   \
     --mine \
     --miner.etherbase d536462d23cda419768337b4fa96ebcf402fa347
+
+```    
