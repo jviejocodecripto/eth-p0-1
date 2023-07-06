@@ -14,13 +14,15 @@ async function main() {
     let wallet = await ethers.Wallet.fromEncryptedJson(jsonWallet, "123456")
     wallet = wallet.connect(httpProvider)
     // crear el contrato
-    const factory = await new ethers.ContractFactory(contractAbi, contractByteCode, wallet)
-    // hacer el deploy
-    let contract = await factory.deploy();  
-    await contract.waitForDeployment()
-    const addressContract = await contract.getAddress()
-    fs.writeFileSync("./smartContractAddress.txt", addressContract)
-    console.log(addressContract);    
+    const c = fs.readFileSync("smartContractAddress.txt").toString()
+    const contract = new ethers.Contract(c, contractAbi, wallet);
+    
+    let tx = await contract.inc()
+    console.log(tx.nonce)
+    tx = await contract.inc({
+        nonce:tx.nonce+1
+    })
+    console.log(await contract.contador())
 }
 main()
 
