@@ -1,3 +1,49 @@
+# Ejemplo de genesis.json
+```json
+{
+    "config": {
+        "chainId": 3333,
+        "homesteadBlock": 0,
+        "eip150Block": 0,
+        "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "eip155Block": 0,
+        "eip158Block": 0,
+        "byzantiumBlock": 0,
+        "constantinopleBlock": 0,
+        "petersburgBlock": 0,
+        "istanbulBlock": 0,
+        "clique": {
+            "period": 0,
+            "epoch": 30000
+        }
+    },
+    "nonce": "0x0",
+    "timestamp": "0x632f67d7",
+    "extraData": "0x00000000000000000000000000000000000000000000000000000000000000006f4094b7455e9df89022a2add93d979b56be11040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "gasLimit": "0x47b760",
+    "difficulty": "0x1",
+    "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "coinbase": "0x0000000000000000000000000000000000000000",
+    "alloc": {
+        "6f4094b7455e9df89022a2add93d979b56be1104": {
+            "balance": "0x200000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x603f42e15F6518aE60246026564a19E9837F3D8e": {
+            "balance": "0x200000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x33922D431E9289Bb6fD07EA1e40CD2D1AB14130a": {
+            "balance": "0x200000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x23075ae29DD791D8a28af28e2BC978F61c9D6773": {
+            "balance": "0x200000000000000000000000000000000000000000000000000000000000000"
+        }
+    },
+    "number": "0x0",
+    "gasUsed": "0x0",
+    "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "baseFeePerGas": null
+}
+```
 # Creacion del nodo con docker
 ```
 docker run \
@@ -40,6 +86,29 @@ docker run  -p 8545:8545 \
 
 
 ```    
+# Smart contract
+```solidity
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity >= 0.4.22 <0.9.0;
+
+contract Contador {
+    uint256 public contador;
+
+    constructor() {
+        contador = 100;
+    }
+
+    function inc() public  {
+        contador = contador + 1;
+    }
+
+    function dec() public  {
+        contador = contador - 1;
+    }
+
+}
+
+```
 # Compilar con la version 0.8.18
 ```
 npx solc@0.8.18 -o out --bin --abi contador.sol
