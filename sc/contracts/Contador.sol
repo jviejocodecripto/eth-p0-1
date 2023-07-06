@@ -17,7 +17,7 @@ contract Contador {
         contador = 100;
     }
 
-    function inc() payable public {
+    function inc() public payable {
         contador = contador + 1;
     }
 
