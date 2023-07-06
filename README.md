@@ -45,7 +45,7 @@ docker run  -p 8545:8545 \
 npx solc@0.8.18 -o out --bin --abi contador.sol
 ```
 # Deploy contrato
-```
+```js
 const {  ethers, JsonRpcProvider } = require('ethers');
 const fs = require("fs");
 // conexion al nodo desde nodejs
@@ -76,7 +76,7 @@ main()
 ```
 
 # Exec de metodos del contrato
-```
+```js
 const {  ethers, JsonRpcProvider } = require('ethers');
 const fs = require("fs");
 // conexion al nodo desde nodejs
