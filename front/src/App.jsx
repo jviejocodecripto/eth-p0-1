@@ -13,7 +13,20 @@ function App() {
 
   const SC = "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e"
   const provider = new ethers.BrowserProvider(window.ethereum);
-  
+
+  useEffect(()=>{
+    const accounts = ethereum.request({
+      method: "eth_requestAccounts",
+    }).then(cuentas =>{
+      setCuenta(cuentas[0])
+      window.ethereum.on("accountsChanged", (account) => {
+        console.log("cambiado")
+        setCuenta(account[0])
+      })
+
+    })
+  },[])
+
   useEffect(() => {
     const accounts = ethereum.request({
       method: "eth_requestAccounts",

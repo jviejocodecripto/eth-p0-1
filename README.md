@@ -1,6 +1,7 @@
 ```
 docker run \
-     -v ${PWD}:/data ethereum/client-go account 
+     --rm \
+     -v ${PWD}:/data ethereum/client-go account \
      new --password /data/password.txt --datadir /data/data
 
 
@@ -28,9 +29,14 @@ docker run  -p 8545:8545 \
     --http.addr 0.0.0.0 \
     --http.port 8545 \
     --http.corsdomain="*" \
-    --unlock d536462d23cda419768337b4fa96ebcf402fa347 \
+    --unlock 6f4094b7455e9df89022a2add93d979b56be1104 \
     --password /password.txt   \
     --mine \
-    --miner.etherbase d536462d23cda419768337b4fa96ebcf402fa347
+    --miner.etherbase 6f4094b7455e9df89022a2add93d979b56be1104
+
+
+
+compilar
+npx solc@0.8.18 -o out --bin --abi contador.sol
 
 ```    

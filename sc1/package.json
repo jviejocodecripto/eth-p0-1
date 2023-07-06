@@ -1,9 +1,9 @@
 {
-  "name": "nodo",
+  "name": "sc1",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "ethers": "^6.6.1"
+    "ethers": "^6.6.2"
   }
 }
