@@ -214,7 +214,8 @@ import { ethers, JsonRpcProvider } from 'ethers'
 import './App.css'
 
 const ABI = `
-[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"contador","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"dec","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"inc","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},
+ {"inputs":[],"name":"contador","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"dec","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"inc","outputs":[],"stateMutability":"nonpayable","type":"function"}]
 `
 const SC = "0x8ED2987b3d9DC513A7114Ab8142358d5fdAe1542"
 let httpProvider = new JsonRpcProvider("http://localhost:8545")
@@ -227,7 +228,6 @@ function App() {
   useEffect(() => {
     const contract = new ethers.Contract(SC, ABI, httpProvider);
     contract.contador().then(r => {
-      console.log("exec", r)
       setContador(r.toString());
     })
   }, [address])
@@ -245,18 +245,11 @@ function App() {
   async function op(valor) {
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
-    // console.log("Account:", await signer.getAddress());
+
     const contract = new ethers.Contract(SC, ABI, signer);
-    let tx = null
-    if (valor == 1) {
-      tx = await contract.inc()
-    } else {
-      tx = await contract.dec()
-    }
+    const tx  = valor == 1 ? await contract.inc(): await contract.dec()
     const receipt = await tx.wait();
-   
     setTx(JSON.stringify({tx, receipt}, null, 4))
-    
     const c = await contract.contador()
     console.log("nuevo contador ", c)
     setContador(c.toString())
@@ -273,5 +266,53 @@ function App() {
 }
 
 export default App
+```
+# Descripcion de la tx 
+```
+LA CUENTA ES: 0x603f42e15f6518ae60246026564a19e9837f3d8e
+Contador: 120
 
+{
+    "tx": {
+        "_type": "TransactionReceipt",
+        "accessList": null,
+        "blockNumber": null,
+        "blockHash": null,
+        "chainId": "3333",
+        "data": "0xb3bcfa82",
+        "from": "0x603f42e15F6518aE60246026564a19E9837F3D8e",
+        "gasLimit": "27232",
+        "gasPrice": "1000000000",
+        "hash": "0x3750fdee030ff2078ebfc1738af09325108efb9fda01e0cc86e03a280a549255",
+        "maxFeePerGas": null,
+        "maxPriorityFeePerGas": null,
+        "nonce": 42,
+        "signature": {
+            "_type": "signature",
+            "networkV": "6702",
+            "r": "0x702ac99258d5e0e5b2ba9e3cdbea564093f0a110d318f0b1079ae6d44afcf388",
+            "s": "0x5684f5760409e5ab06adf00963fc4496fa973d3cd2859684e43eb9ea09645429",
+            "v": 28
+        },
+        "to": "0x8ED2987b3d9DC513A7114Ab8142358d5fdAe1542",
+        "type": 0,
+        "value": "0"
+    },
+    "receipt": {
+        "_type": "TransactionReceipt",
+        "blockHash": "0x9679b5a6ed5cd42cce4d5e0028f16eb02c643b2554f6dd43d1e28b81889da18a",
+        "blockNumber": 59,
+        "contractAddress": null,
+        "cumulativeGasUsed": "27232",
+        "from": "0x603f42e15F6518aE60246026564a19E9837F3D8e",
+        "gasPrice": "1000000000",
+        "gasUsed": "27232",
+        "hash": "0x3750fdee030ff2078ebfc1738af09325108efb9fda01e0cc86e03a280a549255",
+        "index": 0,
+        "logs": [],
+        "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "status": 1,
+        "to": "0x8ED2987b3d9DC513A7114Ab8142358d5fdAe1542"
+    }
+}
 ```
