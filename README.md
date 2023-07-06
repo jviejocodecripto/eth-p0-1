@@ -1,10 +1,9 @@
+# Creacion del nodo con docker
 ```
 docker run \
      --rm \
      -v ${PWD}:/data ethereum/client-go account \
      new --password /data/password.txt --datadir /data/data
-
-
 
 docker run \
    --rm \
@@ -14,9 +13,11 @@ docker run \
    --datadir /data /genesis.json
 
 
+Cambiar las address de unlock y miner.etherbase
 
 docker run  -p 8545:8545 \
     --rm \
+    -d \
     --name eth-node1 \
     -v ${PWD}/data:/data \
     -v ${PWD}/password.txt:/password.txt \
@@ -36,7 +37,8 @@ docker run  -p 8545:8545 \
 
 
 
-compilar
+compilar con la version 0.8.18
+
 npx solc@0.8.18 -o out --bin --abi contador.sol
 
 ```    
